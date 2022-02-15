@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-func (c *Client) GetAllCompanies(authToken *string) (*[]Company, error) {
+func (c *Client) GetAllCompanies(authToken *string) (*[]CompanyRow, error) {
 	req, err := http.NewRequest("GET", fmt.Sprintf("%s/companies", c.HostURL), nil)
 	if err != nil {
 		return nil, err
@@ -17,11 +17,11 @@ func (c *Client) GetAllCompanies(authToken *string) (*[]Company, error) {
 		return nil, err
 	}
 
-	companies := []Company{}
-	err = json.Unmarshal(body, &companies)
+	company := Company{}
+	err = json.Unmarshal(body, &company)
 	if err != nil {
 		return nil, err
 	}
 
-	return &companies, nil
+	return &company.Rows, nil
 }
