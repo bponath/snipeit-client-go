@@ -1,4 +1,4 @@
-package hashicups
+package snipeit
 
 import (
 	"encoding/json"

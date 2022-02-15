@@ -1,4 +1,4 @@
-package hashicups
+package snipeit
 
 import (
 	"fmt"
@@ -8,31 +8,63 @@ import (
 )
 
 // HostURL - Default Hashicups URL
-const HostURL string = "http://localhost:19090"
+const HostURL string = "http://localhost:3051"
 
 // Client -
 type Client struct {
 	HostURL    string
 	HTTPClient *http.Client
 	Token      string
-	Auth       AuthStruct
+	// Auth       AuthStruct
 }
 
 // AuthStruct -
-type AuthStruct struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
-}
+// type AuthStruct struct {
+// 	Username string `json:"username"`
+// 	Password string `json:"password"`
+// }
 
 // AuthResponse -
-type AuthResponse struct {
-	UserID   int    `json:"user_id`
-	Username string `json:"username`
-	Token    string `json:"token"`
-}
+// type AuthResponse struct {
+// 	UserID   int    `json:"user_id`
+// 	Username string `json:"username`
+// 	Token    string `json:"token"`
+// }
+
+// // NewClient -
+// func NewClient(host, username, password *string) (*Client, error) {
+// 	c := Client{
+// 		HTTPClient: &http.Client{Timeout: 10 * time.Second},
+// 		// Default Hashicups URL
+// 		HostURL: HostURL,
+// 	}
+
+// 	if host != nil {
+// 		c.HostURL = *host
+// 	}
+
+// 	// If username or password not provided, return empty client
+// 	if username == nil || password == nil {
+// 		return &c, nil
+// 	}
+
+// 	c.Auth = AuthStruct{
+// 		Username: *username,
+// 		Password: *password,
+// 	}
+
+// 	ar, err := c.SignIn()
+// 	if err != nil {
+// 		return nil, err
+// 	}
+
+// 	c.Token = ar.Token
+
+// 	return &c, nil
+// }
 
 // NewClient -
-func NewClient(host, username, password *string) (*Client, error) {
+func NewClient(host, api_key *string) (*Client, error) {
 	c := Client{
 		HTTPClient: &http.Client{Timeout: 10 * time.Second},
 		// Default Hashicups URL
@@ -43,22 +75,22 @@ func NewClient(host, username, password *string) (*Client, error) {
 		c.HostURL = *host
 	}
 
-	// If username or password not provided, return empty client
-	if username == nil || password == nil {
-		return &c, nil
-	}
+	// // If username or password not provided, return empty client
+	// if username == nil || password == nil {
+	// 	return &c, nil
+	// }
 
-	c.Auth = AuthStruct{
-		Username: *username,
-		Password: *password,
-	}
+	// c.Auth = AuthStruct{
+	// 	Username: *username,
+	// 	Password: *password,
+	// }
 
-	ar, err := c.SignIn()
-	if err != nil {
-		return nil, err
-	}
+	// ar, err := c.SignIn()
+	// if err != nil {
+	// 	return nil, err
+	// }
 
-	c.Token = ar.Token
+	c.Token = *api_key
 
 	return &c, nil
 }

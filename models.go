@@ -1,4 +1,4 @@
-package hashicups
+package snipeit
 
 // Order -
 type Order struct {
@@ -39,4 +39,21 @@ type Ingredient struct {
 	Name     string `json:"name"`
 	Quantity int    `json:"quantity"`
 	Unit     string `json:"unit"`
+}
+
+type Company struct {
+	Total int          `json:"total"`
+	Rows  []CompanyRow `json:"rows"`
+}
+
+type CompanyRow struct {
+	ID               int    `json:"id"`
+	Name             string `json:"name"`
+	Image            string `json:"image"`
+	AssetsCount      int    `json:"assets_count"`
+	LicensesCount    int    `json:"licenses_count"`
+	AccessoriesCount int    `json:"accessories_count"`
+	ConsumablesCount int    `json:"consumables_count"`
+	ComponentsCount  int    `json:"components_count"`
+	UsersCount       int    `json:"users_count"`
 }
