@@ -28,7 +28,7 @@ func (c *Client) GetAllCompanies(authToken *string) (*[]CompanyRow, error) {
 }
 
 // CreateCompany - Create new company
-func (c *Client) CreateCompany(company Company, authToken *string) (*Company, error) {
+func (c *Client) CreateCompany(company CompanyRow, authToken *string) (*CompanyRow, error) {
 	rb, err := json.Marshal(company)
 	if err != nil {
 		return nil, err
@@ -44,7 +44,7 @@ func (c *Client) CreateCompany(company Company, authToken *string) (*Company, er
 		return nil, err
 	}
 
-	company_return := Company{}
+	company_return := CompanyRow{}
 	err = json.Unmarshal(body, &company_return)
 	if err != nil {
 		return nil, err
