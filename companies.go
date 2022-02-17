@@ -1,10 +1,10 @@
 package snipeit
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"strings"
 )
 
 func (c *Client) GetAllCompanies(authToken *string) (*[]CompanyRow, error) {
@@ -56,7 +56,8 @@ func (c *Client) CreateCompany(company CompanyRow, authToken *string) (*CompanyR
 
 	rb, err := json.Marshal(company_to_create)
 
-	req, err := http.NewRequest("POST", fmt.Sprintf("%s/companies", c.HostURL), strings.NewReader(string(rb)))
+	// req, err := http.NewRequest("POST", fmt.Sprintf("%s/companies", c.HostURL), strings.NewReader(string(rb)))
+	req, err := http.Post(fmt.Sprintf("%s/companies", c.HostURL), "application/json", bytes.NewBuffer(rb))
 	if err != nil {
 		return nil, err
 	}
