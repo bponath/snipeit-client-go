@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strings"
 )
 
 func (c *Client) GetAllCompanies(authToken *string) (*[]CompanyRow, error) {
@@ -24,4 +25,30 @@ func (c *Client) GetAllCompanies(authToken *string) (*[]CompanyRow, error) {
 	}
 
 	return &company.Rows, nil
+}
+
+// CreateCompany - Create new company
+func (c *Client) CreateCompany(company Company, authToken *string) (*Company, error) {
+	rb, err := json.Marshal(company)
+	if err != nil {
+		return nil, err
+	}
+
+	req, err := http.NewRequest("POST", fmt.Sprintf("%s/companies", c.HostURL), strings.NewReader(string(rb)))
+	if err != nil {
+		return nil, err
+	}
+
+	body, err := c.doRequest(req, authToken)
+	if err != nil {
+		return nil, err
+	}
+
+	company_return := Company{}
+	err = json.Unmarshal(body, &company_return)
+	if err != nil {
+		return nil, err
+	}
+
+	return &company_return, nil
 }
