@@ -57,3 +57,15 @@ type CompanyRow struct {
 	ComponentsCount  int    `json:"components_count"`
 	UsersCount       int    `json:"users_count"`
 }
+
+type Consumable struct {
+	ID       int      `json:"id"`
+	Name     string   `json:"name"`
+	Image    string   `json:"image"`
+	Category Category `json:"category"`
+}
+
+type Category struct {
+	ID   int    `json:"id"`
+	Name string `json:"name"`
+}
