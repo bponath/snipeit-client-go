@@ -50,10 +50,11 @@ func (c *Client) GetCompany(companyID string, authToken *string) (*CompanyRow, e
 
 // CreateCompany - Create new company
 func (c *Client) CreateCompany(company CompanyRow, authToken *string) (*CompanyRow, error) {
-	rb, err := json.Marshal(company)
-	if err != nil {
-		return nil, err
-	}
+	// rb, err := json.Marshal(company)
+	company_to_create := make(map[string]interface{})
+	company_to_create["name"] = company.Name
+
+	rb, err := json.Marshal(company_to_create)
 
 	req, err := http.NewRequest("POST", fmt.Sprintf("%s/companies", c.HostURL), strings.NewReader(string(rb)))
 	if err != nil {
